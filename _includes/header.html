@@ -1,45 +1,25 @@
-<a href="" id="top"></a>
-<div class='contain-to-grid sticky'>
-  <nav class='top-bar' data-options='sticky_on: large' data-topbar=''>
-    <ul class='title-area'>
-      <li class='name'>
-        <h1>
-          <a href="{{site.url}}/index.html">
-            <img alt="" src="{{site.url}}/images/logo-bordered.png" />
-          </a>
-        </h1>
-      </li>
-      <li class='toggle-topbar menu-icon'>
-        <a href='#'>Menu</a>
+<!-- Header -->
+<header id="header"{% if page.layout == 'landing' %} class="alt"{% endif %}>
+  <h1><a href="{{ site.baseurl }}/index.html">{{ site.title }}</a></h1>
+  <nav id="nav">
+    <ul>
+      <li class="special">
+        <a href="#menu" class="menuToggle"><span>Menu</span></a>
+        <div id="menu">
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            {% for my_page in site.pages %}
+            {% if my_page.title %}
+            <li><a href="{{ my_page.url | prepend: site.baseurl }}">{{ my_page.title }}</a></li>
+            {% endif %}
+            {% endfor %}
+            <li><a href="#">Sign Up</a></li>
+            <li><a href="#">Log In</a></li>
+            <li><a href="{{ "/feed.xml" | prepend: site.baseurl }}"
+                   class="icon fa-feed"> RSS Feed</a></li>
+          </ul>
+        </div>
       </li>
     </ul>
-    <section class='top-bar-section'>
-      <ul class="right">
-        {% for item in site.data.nav %}
-          {% if item.section_id == page.section_id %}
-            {% assign active_class = "active" %}
-          {% else %}
-            {% assign active_class = "" %}
-          {% endif %}
-
-          {% if item.children %}
-            <li class="has-dropdown {{active_class}}">
-              <a href="{{site.url}}/{{ item.path }}">{{ item.name }}</a>
-              <ul class='dropdown'>
-                {% for child in item.children %}
-                  <li>
-                    <a href="{{site.url}}/{{ child.path }}">{{ child.name }}</a>
-                  </li>
-                {% endfor %}
-              </ul>
-            </li>
-          {% else %}
-            <li class="{{active_class}}">
-              <a href="{{site.url}}/{{ item.path }}">{{ item.name }}</a>
-            </li>
-          {% endif %}
-        {% endfor %}
-      </ul>
-    </section>
   </nav>
-</div>
+</header>
